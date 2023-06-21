@@ -8,6 +8,7 @@ import com.boardapp.boardapi.user.model.UserInfoDto;
 import com.boardapp.boardapi.user.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class UserService {
 
@@ -21,6 +22,8 @@ public class UserService {
         List<UserInfo> userInfoList = this.userRepository.findAllUserInfo();
 
         if (userInfoList.isEmpty()) {
+            log.error("Error occured : User list empty...");
+
             return null;
         }
 
@@ -45,6 +48,8 @@ public class UserService {
         UserInfo userInfo = this.userRepository.findUserInfoById(id);
 
         if (userInfo == null) {
+            log.error("Error occured : User not exist...");
+
             return null;
         }
 
@@ -63,9 +68,7 @@ public class UserService {
     }
 
     public void modifyUserInfo(String id, UserInfoDto userInfoDto) {
-        UserInfo userInfo = userInfoDto.toUserInfoEntity();
-
-        this.userRepository.editUser(id, userInfo);
+        this.userRepository.editUser(id, userInfoDto.toUserInfoEntity());
     }
 
     public void removeUserInfo(String id) {

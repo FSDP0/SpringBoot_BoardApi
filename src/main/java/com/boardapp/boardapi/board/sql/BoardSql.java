@@ -1,8 +1,5 @@
 package com.boardapp.boardapi.board.sql;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public class BoardSql {
     public static String SELECT_ALL = """
             SELECT *
