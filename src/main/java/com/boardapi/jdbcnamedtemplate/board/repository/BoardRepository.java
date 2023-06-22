@@ -30,23 +30,23 @@ public class BoardRepository {
     public List<Board> findAllBoard() {
         log.info("\\... Repository");
 
-        StringBuilder SQL = new StringBuilder(boardSQLProps.getSELECT_ALL());
+        String SQL = boardSQLProps.getSELECT_ALL();
 
-        log.info("\n[ Sending SQL Query ] " + SQL.toString());
+        log.info("\n[ Sending SQL Query ] " + SQL);
 
-        return this.namedParameterJdbcTemplate.query(SQL.toString(), boardMapper);
+        return this.namedParameterJdbcTemplate.query(SQL, boardMapper);
     }
 
     public Board findBoardById(Long id) {
         log.info("\\... Repository");
 
-        StringBuilder SQL = new StringBuilder(boardSQLProps.getSELECT_BY_ID());
+        String SQL = boardSQLProps.getSELECT_BY_ID();
 
-        log.info("\n[ Sending SQL Query ] " + SQL.toString());
+        log.info("\n[ Sending SQL Query ] " + SQL);
 
         SqlParameterSource namedParameter = new MapSqlParameterSource("boardId", id);
 
-        return this.namedParameterJdbcTemplate.queryForObject(SQL.toString(), namedParameter, boardMapper);
+        return this.namedParameterJdbcTemplate.queryForObject(SQL, namedParameter, boardMapper);
     }
 
     public void saveBoard(Board board) {
@@ -54,13 +54,13 @@ public class BoardRepository {
 
         board.setCreatedDate(Timestamp.valueOf(LocalDateTime.now()));
 
-        StringBuilder SQL = new StringBuilder(boardSQLProps.getINSERT_BOARD());
+        String SQL = boardSQLProps.getINSERT_BOARD();
 
-        log.info("\n[ Sending SQL Query ] " + SQL.toString());
+        log.info("\n[ Sending SQL Query ] " + SQL);
 
         SqlParameterSource namedParameterSource = new BeanPropertySqlParameterSource(board);
 
-        this.namedParameterJdbcTemplate.update(SQL.toString(), namedParameterSource);
+        this.namedParameterJdbcTemplate.update(SQL, namedParameterSource);
     }
 
     public void editBoard(Long id, Board board) {
@@ -69,24 +69,24 @@ public class BoardRepository {
         board.setBoardId(id);
         board.setModifiedDate(Timestamp.valueOf(LocalDateTime.now()));
 
-        StringBuilder SQL = new StringBuilder(boardSQLProps.getUPDATE_BY_ID());
+        String SQL = boardSQLProps.getUPDATE_BY_ID();
 
-        log.info("\n[ Sending SQL Query ] " + SQL.toString());
+        log.info("\n[ Sending SQL Query ] " + SQL);
 
         SqlParameterSource namedParameterSource = new BeanPropertySqlParameterSource(board);
 
-        this.namedParameterJdbcTemplate.update(SQL.toString(), namedParameterSource);
+        this.namedParameterJdbcTemplate.update(SQL, namedParameterSource);
     }
 
     public void deleteBoard(Long id) {
         log.info("\\... Repository");
 
-        StringBuilder SQL = new StringBuilder(boardSQLProps.getDELETE_BY_ID());
+        String SQL = boardSQLProps.getDELETE_BY_ID();
 
-        log.info("\n[ Sending SQL Query ] " + SQL.toString());
+        log.info("\n[ Sending SQL Query ] " + SQL);
 
         SqlParameterSource namedParameter = new MapSqlParameterSource("boardId", id);
 
-        this.namedParameterJdbcTemplate.update(SQL.toString(), namedParameter);
+        this.namedParameterJdbcTemplate.update(SQL, namedParameter);
     }
 }

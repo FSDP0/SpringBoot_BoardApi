@@ -30,22 +30,22 @@ public class UserRepository {
     public List<User> findAllUsers() {
         log.info("\\... Repository");
 
-        StringBuilder SQL = new StringBuilder(userSQLProps.getSELECT_ALL());
+        String SQL = userSQLProps.getSELECT_ALL();
 
-        log.info("\n[ Sending SQL Query ]\n" + SQL.toString());
+        log.info("\n[ Sending SQL Query ]\n" + SQL);
 
-        return this.namedParameterJdbcTemplate.query(SQL.toString(), userRowMapper);
+        return this.namedParameterJdbcTemplate.query(SQL, userRowMapper);
     }
 
     public User findUserById(String userId) {
         log.info("\\... Repository");
 
-        StringBuilder SQL = new StringBuilder(userSQLProps.getSELECT_BY_USER_ID());
+        String SQL = userSQLProps.getSELECT_BY_USER_ID();
         SqlParameterSource namedParameter = new MapSqlParameterSource("userId", userId);
 
-        log.info("\n[ Sending SQL Query ]\n" + SQL.toString());
+        log.info("\n[ Sending SQL Query ]\n" + SQL);
 
-        return this.namedParameterJdbcTemplate.queryForObject(SQL.toString(), namedParameter, userRowMapper);
+        return this.namedParameterJdbcTemplate.queryForObject(SQL, namedParameter, userRowMapper);
     }
 
     public void saveUser(User user) {
@@ -53,17 +53,17 @@ public class UserRepository {
 
         user.setCreatedDate(Timestamp.valueOf(LocalDateTime.now()));
 
-        StringBuilder userSQL = new StringBuilder(userSQLProps.getINSERT_USER());
-        StringBuilder addressSQL = new StringBuilder(userSQLProps.getINSERT_ADDRESS());
+        String userSQL = userSQLProps.getINSERT_USER();
+        String addressSQL = userSQLProps.getINSERT_ADDRESS();
 
-        log.info("\n[ Sending SQL Query ]\n" + userSQL.toString());
-        log.info("\n[ Sending SQL Query ]\n" + addressSQL.toString());
+        log.info("\n[ Sending SQL Query ]\n" + userSQL);
+        log.info("\n[ Sending SQL Query ]\n" + addressSQL);
 
         SqlParameterSource userNamedParameterSource = new BeanPropertySqlParameterSource(user);
-        this.namedParameterJdbcTemplate.update(userSQL.toString(), userNamedParameterSource);
+        this.namedParameterJdbcTemplate.update(userSQL, userNamedParameterSource);
 
         SqlParameterSource addressNamedParameterSource = new BeanPropertySqlParameterSource(user);
-        this.namedParameterJdbcTemplate.update(addressSQL.toString(), addressNamedParameterSource);
+        this.namedParameterJdbcTemplate.update(addressSQL, addressNamedParameterSource);
     }
 
     public void editUser(String userId, User user) {
@@ -72,28 +72,28 @@ public class UserRepository {
         user.setUserId(userId);
         user.setModifiedDate(Timestamp.valueOf(LocalDateTime.now()));
 
-        StringBuilder userSQL = new StringBuilder(userSQLProps.getUPDATE_USER_BY_USER_ID());
-        StringBuilder addressSQL = new StringBuilder(userSQLProps.getUPDATE_ADDRESS_BY_USER_ID());
+        String userSQL = userSQLProps.getUPDATE_USER_BY_USER_ID();
+        String addressSQL = userSQLProps.getUPDATE_ADDRESS_BY_USER_ID();
 
-        log.info("\n[ Sending SQL Query ]\n" + userSQL.toString());
-        log.info("\n[ Sending SQL Query ]\n" + addressSQL.toString());
+        log.info("\n[ Sending SQL Query ]\n" + userSQL);
+        log.info("\n[ Sending SQL Query ]\n" + addressSQL);
 
         SqlParameterSource userNamedParameterSource = new BeanPropertySqlParameterSource(user);
-        this.namedParameterJdbcTemplate.update(userSQL.toString(), userNamedParameterSource);
+        this.namedParameterJdbcTemplate.update(userSQL, userNamedParameterSource);
 
         SqlParameterSource addressNamedParameterSource = new BeanPropertySqlParameterSource(user);
-        this.namedParameterJdbcTemplate.update(userSQL.toString(), addressNamedParameterSource);
+        this.namedParameterJdbcTemplate.update(userSQL, addressNamedParameterSource);
     }
 
     public void deleteUser(String userId) {
         log.info("\\... Repository");
 
-        StringBuilder SQL = new StringBuilder(userSQLProps.getDELETE_BY_USER_ID());
+        String SQL = userSQLProps.getDELETE_BY_USER_ID();
 
-        log.info("\n[ Sending SQL Query ]\n" + SQL.toString());
+        log.info("\n[ Sending SQL Query ]\n" + SQL);
 
         SqlParameterSource namedParameter = new MapSqlParameterSource("userId", userId);
 
-        this.namedParameterJdbcTemplate.update(SQL.toString(), namedParameter);
+        this.namedParameterJdbcTemplate.update(SQL, namedParameter);
     }
 }
