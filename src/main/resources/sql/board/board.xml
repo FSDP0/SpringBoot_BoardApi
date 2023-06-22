@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="board.SELECT_ALL">
+        SELECT *
+        FROM boards.board
+    </entry>
+
+    <entry key="board.SELECT_BY_ID">
+        SELECT *
+        FROM boards.board
+        WHERE board_id = :boardId
+    </entry>
+    
+    <entry key="board.INSERT_BOARD">
+        INSERT INTO boards.board(
+            board_title,
+            user_id,
+            board_content,
+            created_date
+        ) VALUES(
+            :boardTitle,
+            :userId,
+            :boardContent,
+            :createdDate
+        )
+    </entry>
+
+    <entry key="board.UPDATE_BY_ID">
+        UPDATE boards.board
+        SET board_title = :boardTitle,
+            board_content = :boardContent,
+            modified_date = :modifiedDate
+        WHERE board_id = :boardId
+    </entry>
+
+    <entry key="board.DELETE_BY_ID">
+        DELETE
+        FROM boards.board
+        WHERE board_id = :boardId
+    </entry>
+</properties>
