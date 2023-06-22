@@ -1,0 +1,16 @@
+spring:
+    devtools:
+        livereload:
+            enabled: false
+    # Spring Boot default profile active : local
+    profiles:
+        active: local
+    # Spring Boot output log colorize
+    output:
+        ansi:
+            enabled: always
+    sql:
+        init:
+            mode: always
+            schema-locations: classpath:schema-mysql.sql
+            data-locations: classpath:data-mysql.sql
