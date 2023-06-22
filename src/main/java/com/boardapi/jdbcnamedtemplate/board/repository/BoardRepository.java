@@ -44,7 +44,7 @@ public class BoardRepository {
 
         log.info("\n[ Sending SQL Query ] " + SQL.toString());
 
-        SqlParameterSource namedParameter = new MapSqlParameterSource("id", id);
+        SqlParameterSource namedParameter = new MapSqlParameterSource("boardId", id);
 
         return this.namedParameterJdbcTemplate.queryForObject(SQL.toString(), namedParameter, boardMapper);
     }
@@ -85,7 +85,7 @@ public class BoardRepository {
 
         log.info("\n[ Sending SQL Query ] " + SQL.toString());
 
-        SqlParameterSource namedParameter = new MapSqlParameterSource("id", id);
+        SqlParameterSource namedParameter = new MapSqlParameterSource("boardId", id);
 
         this.namedParameterJdbcTemplate.update(SQL.toString(), namedParameter);
     }
